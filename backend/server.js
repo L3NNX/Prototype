@@ -29,14 +29,14 @@ app.post("/order", async (req, res) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Basic ${process.env.ONESIGNAL_API_KEY}`,
+          Authorization: `Bearer ${process.env.ONESIGNAL_API_KEY}`,
         },
         body: JSON.stringify({
           app_id: process.env.ONESIGNAL_APP_ID,
           headings: { en: "New Order 🍔" },
           contents: { en: "Order #123 from John Doe" },
           included_segments: ["All"], // prototype shortcut
-          url: "http://localhost:5500" // opens dashboard on click
+          url: "https://prototype-xi-virid.vercel.app" 
         }),
       }
     );
