@@ -28,7 +28,7 @@
     <script>
       function enableNotifications() {
         window.OneSignalDeferred.push(function (OneSignal) {
-          OneSignal.showSlidedownPrompt();
+          OneSignal.Notifications.requestPermission();
         });
       }
     </script>
