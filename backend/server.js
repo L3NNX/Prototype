@@ -21,6 +21,21 @@ app.get("/health", (req, res) => {
     timestamp: Date.now(),
   });
 })
+
+// Debug route - check if env vars are loaded
+app.get("/debug", (req, res) => {
+  res.json({
+    hasAppId: !!process.env.ONESIGNAL_APP_ID,
+    hasApiKey: !!process.env.ONESIGNAL_API_KEY,
+    appIdPreview: process.env.ONESIGNAL_APP_ID 
+      ? process.env.ONESIGNAL_APP_ID.substring(0, 8) + "..." 
+      : "NOT SET",
+    apiKeyPreview: process.env.ONESIGNAL_API_KEY 
+      ? process.env.ONESIGNAL_API_KEY.substring(0, 15) + "..." 
+      : "NOT SET",
+  });
+});
+
 app.post("/order", async (req, res) => {
   try {
     const response = await fetch(
@@ -29,7 +44,7 @@ app.post("/order", async (req, res) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.ONESIGNAL_API_KEY}`,
+          Authorization: `Key ${process.env.ONESIGNAL_API_KEY}`,
         },
         body: JSON.stringify({
           app_id: process.env.ONESIGNAL_APP_ID,
