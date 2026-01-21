@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Restaurant Dashboard</title>
+
+    <script
+      src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+      defer
+    ></script>
+
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function (OneSignal) {
+        await OneSignal.init({
+          appId: "b3769927-efa7-4315-9307-5d178e30de4f",
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <h1>Restaurant Dashboard</h1>
+
+    <button onclick="enableNotifications()">
+      Enable Notifications
+    </button>
+
+    <script>
+      function enableNotifications() {
+        window.OneSignalDeferred.push(function (OneSignal) {
+          OneSignal.showSlidedownPrompt();
+        });
+      }
+    </script>
+  </body>
+</html>
