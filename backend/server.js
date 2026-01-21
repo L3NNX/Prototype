@@ -1,12 +1,26 @@
 import express from "express";
 import fetch from "node-fetch";
+import cors from "cors";
 import dotenv from "dotenv";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(
+  cors({
+    origin: process.env.CORS_ORIGINS || "*",
+    credentials: false,
+  })
+);
 
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    uptime: process.uptime(),
+    timestamp: Date.now(),
+  });
+})
 app.post("/order", async (req, res) => {
   try {
     const response = await fetch(
@@ -33,6 +47,9 @@ app.post("/order", async (req, res) => {
     console.error(err);
     res.status(500).json({ success: false });
   }
+});
+app.get("/", (req, res) => {
+  res.send("One Signal Prototype.");
 });
 
 app.listen(3001, () => {
